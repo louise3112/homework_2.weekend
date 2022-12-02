@@ -18,6 +18,7 @@ class TestRoom(unittest.TestCase):
         self.guest_1 = Guest("Jane", 20)
         self.guest_2 = Guest("Brian", 21)
         self.guest_3 = Guest("Sarah", 25)
+        self.list_of_guests = [self.guest_1, self.guest_2, self.guest_3]
     
     def test_room_has_name(self):
         self.assertEqual("Pop Room", self.room_1.name)
@@ -31,3 +32,11 @@ class TestRoom(unittest.TestCase):
     def test_room_starts_with_no_guests(self):
         self.assertEqual([], self.room_1.guests)
     
+    def test_add_guests(self):
+        self.room_1.add_guest(self.guest_1)
+        self.assertEqual([self.guest_1], self.room_1.guests)
+    
+    def test_remove_guests(self):
+        self.room_1.add_guest(self.guest_1)
+        self.room_1.remove_guest(self.guest_1)
+        self.assertEqual([], self.room_1.guests)
