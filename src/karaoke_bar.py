@@ -3,6 +3,8 @@ class KaraokeBar():
     def __init__(self, input_name, input_rooms):
         self.name = input_name
         self.rooms = input_rooms
+
+        self.till = 100.00
     
     def find_room(self, room_name):
         for room in self.rooms:
@@ -22,3 +24,9 @@ class KaraokeBar():
         if room != False:
             for guest in group:
                 room.remove_guest(guest)
+    
+    def collect_money_from_rooms(self):
+        for room in self.rooms:
+            self.till += room.revenue
+            room.clear_revenue()
+    
