@@ -8,8 +8,8 @@ from src.song import Song
 class TestRoom(unittest.TestCase):
     
     def setUp(self):
-        self.room_1 = Room("Pop Room", 12)
-        self.room_2 = Room("Punk Room", 8)
+        self.room_1 = Room("Pop Room", 8)
+        self.room_2 = Room("Punk Room", 2)
 
         self.song_1 = Song("Faith", "George Michael")
         self.song_2 = Song("Royals", "Lorde")
@@ -24,7 +24,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual("Pop Room", self.room_1.name)
     
     def test_room_has_capacity(self):
-        self.assertEqual(12, self.room_1.capacity)
+        self.assertEqual(8, self.room_1.capacity)
     
     def test_room_starts_with_no_songs(self):
         self.assertEqual([], self.room_1.songs)
@@ -40,6 +40,11 @@ class TestRoom(unittest.TestCase):
         self.room_1.add_guest(self.guest_1)
         self.room_1.remove_guest(self.guest_1)
         self.assertEqual([], self.room_1.guests)
+
+    def test_calculate_remaining_capacity(self):
+        self.room_1.add_guest(self.guest_1)
+        remaining_capacity = self.room_1.calculate_remaining_capacity()
+        self.assertEqual(7, remaining_capacity)
     
     def test_add_song(self):
         self.room_1.add_song(self.song_1)

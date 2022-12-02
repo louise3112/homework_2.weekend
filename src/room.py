@@ -11,6 +11,9 @@ class Room():
     def remove_guest(self, guest):
         self.guests.remove(guest)
     
+    def calculate_remaining_capacity(self):
+        return self.capacity - len(self.guests)
+    
     def add_song(self, song):
         self.songs.append(song)
 

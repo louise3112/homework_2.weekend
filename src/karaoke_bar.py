@@ -10,14 +10,15 @@ class KaraokeBar():
                 return room
         return False
     
-    def guest_check_in(self, room_name, list_of_guests):
+    def guest_check_in(self, room_name, group):
         room = self.find_room(room_name)
-        if room != False:
-            for guest in list_of_guests:
+        remaining_capacity = room.calculate_remaining_capacity()
+        if room != False and len(group) <= remaining_capacity:
+            for guest in group:
                 room.add_guest(guest)
 
-    def guest_check_out(self, room_name, list_of_guests):
+    def guest_check_out(self, room_name, group):
         room = self.find_room(room_name)
         if room != False:
-            for guest in list_of_guests:
+            for guest in group:
                 room.remove_guest(guest)

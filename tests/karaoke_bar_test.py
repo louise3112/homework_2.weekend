@@ -40,4 +40,8 @@ class TestKaraokeBar(unittest.TestCase):
         self.karaoke_bar_1.guest_check_in("Pop Room", self.list_of_guests)
         self.karaoke_bar_1.guest_check_out("Pop Room", self.list_of_guests)
         self.assertEqual([], self.room_1.guests)
+    
+    def test_guest_check_in__too_full(self):
+        self.karaoke_bar_1.guest_check_in("Punk Room", self.list_of_guests)
+        self.assertEqual([], self.room_1.guests)
         
