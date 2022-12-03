@@ -11,4 +11,3 @@ class Guest():
     def cheer(self, song_name):
         if song_name == self.favourite_song:
             return "Whoo!"
-    

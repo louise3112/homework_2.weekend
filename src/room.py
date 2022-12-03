@@ -1,11 +1,12 @@
 class Room():
-    def __init__(self, input_name, input_capacity):
+    def __init__(self, input_name, input_capacity, input_bar):
         self.name = input_name
         self.capacity = input_capacity
         self.songs = []
         self.guests = []
         self.revenue = 0.00
         self.entry_fee = 10.00
+        self.bar = input_bar
     
     def increase_revenue(self, amount):
         self.revenue += amount
@@ -36,7 +37,6 @@ class Room():
             if song.name == song_name:
                 return song.artist
 
-    
     def play_song(self, song_name):
         for guest in self.guests:
             if self.song_is_available(song_name) != None and guest.cheer(song_name) != None:
@@ -48,4 +48,24 @@ class Room():
     
     def clear_revenue(self):
         self.revenue = 0.00
+    
+    def find_bar_item(self, item_name):
+        for item in self.bar:
+            if item["name"] == item_name:
+                return item
+    
+    def reduce_stock(self, item):
+        item["stock"] -= 1
 
+    def stock_available(self, item):
+        if item["stock"] > 0:
+            return True
+        else:
+            return False
+
+    def sell_from_bar(self, guest_in_room, item_name):
+        item = self.find_bar_item(item_name)
+        if self.stock_available(item) == True and self.check_guest_can_pay(guest_in_room, item["price"]) == True:
+            self.increase_revenue(item["price"])
+            guest_in_room.decrease_money(item["price"])
+            self.reduce_stock(item)

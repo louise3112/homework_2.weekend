@@ -6,8 +6,12 @@ from src.room import Room
 
 class TestKaraokeBar(unittest.TestCase):
     def setUp(self):
-        self.room_1 = Room("Pop Room", 8)
-        self.room_2 = Room("Punk Room", 2)
+        self.bar = [
+            {"item": "drink", "price": 3.50, "stock": 20},
+            {"item": "crisps", "price": 1.00, "stock": 10},
+            {"name": "pizza", "price": 6.00, "stock": 5}]
+        self.room_1 = Room("Pop Room", 8, self.bar)
+        self.room_2 = Room("Punk Room", 2, self.bar)
         self.ccc_rooms = [self.room_1, self.room_2]
 
         self.karaoke_bar_1 = KaraokeBar("CodeClan Caraoke", self.ccc_rooms, 100.00)

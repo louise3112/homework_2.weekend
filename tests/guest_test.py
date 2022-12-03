@@ -23,5 +23,3 @@ class TestGuest(unittest.TestCase):
     def test_cheer(self):
         cheer = self.guest_1.cheer("Faith")
         self.assertEqual("Whoo!", cheer)
-
-
