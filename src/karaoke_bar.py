@@ -1,10 +1,9 @@
 class KaraokeBar():
     
-    def __init__(self, input_name, input_rooms):
+    def __init__(self, input_name, input_rooms, input_till):
         self.name = input_name
         self.rooms = input_rooms
-
-        self.till = 100.00
+        self.till = input_till
     
     def find_room(self, room_name):
         for room in self.rooms:

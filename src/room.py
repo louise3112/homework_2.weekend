@@ -31,6 +31,21 @@ class Room():
     def add_song(self, song):
         self.songs.append(song)
     
+    def song_is_available(self, song_name):
+        for song in self.songs:
+            if song.name == song_name:
+                return song.artist
+
+    
+    def play_song(self, song_name):
+        for guest in self.guests:
+            if self.song_is_available(song_name) != None and guest.cheer(song_name) != None:
+                return f"Playing {song_name} by {self.song_is_available(song_name)}! {guest.cheer(song_name)}"
+            elif self.song_is_available(song_name) != None:
+                return f"Playing {song_name} by {self.song_is_available(song_name)}!"
+            else:
+                return f"{song_name} is not available"
+    
     def clear_revenue(self):
         self.revenue = 0.00
 

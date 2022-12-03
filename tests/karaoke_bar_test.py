@@ -3,7 +3,6 @@ import unittest
 from src.guest import Guest
 from src.karaoke_bar import KaraokeBar
 from src.room import Room
-from src.song import Song
 
 class TestKaraokeBar(unittest.TestCase):
     def setUp(self):
@@ -11,12 +10,12 @@ class TestKaraokeBar(unittest.TestCase):
         self.room_2 = Room("Punk Room", 2)
         self.ccc_rooms = [self.room_1, self.room_2]
 
-        self.karaoke_bar_1 = KaraokeBar("CodeClan Caraoke", self.ccc_rooms)
+        self.karaoke_bar_1 = KaraokeBar("CodeClan Caraoke", self.ccc_rooms, 100.00)
 
-        self.guest_1 = Guest("Jane", 20, 25.00)
-        self.guest_2 = Guest("Brian", 21, 20.00)
-        self.guest_3 = Guest("Sarah", 25, 10.00)
-        self.guest_4 = Guest("Frank", 18, 5.00)
+        self.guest_1 = Guest("Jane", 25.00, "Faith")
+        self.guest_2 = Guest("Brian", 20.00, "Perfect")
+        self.guest_3 = Guest("Sarah", 10.00, "Firework")
+        self.guest_4 = Guest("Frank", 5.00, "Chandalier")
         self.group_1 = [self.guest_1, self.guest_2, self.guest_3]
         self.group_2 = [self.guest_1, self.guest_2, self.guest_4]
     
@@ -43,7 +42,12 @@ class TestKaraokeBar(unittest.TestCase):
         self.assertEqual(30.00, self.room_1.revenue)
         self.assertEqual(15.00, self.guest_1.money)
         self.assertEqual(10.00, self.guest_2.money)
-        self.assertEqual(0.00, self.guest_3.money)    
+        self.assertEqual(0.00, self.guest_3.money)
+    
+    def test_guest_check_in__too_full(self):
+        self.karaoke_bar_1.guest_check_in("Punk Room", self.group_1)
+        self.assertEqual([], self.room_1.guests)
+        self.assertEqual(0.00, self.room_1.revenue)
         
     def test_guest_check_in__cant_all_afford_entry(self):
         self.karaoke_bar_1.guest_check_in("Pop Room", self.group_2)
@@ -57,11 +61,6 @@ class TestKaraokeBar(unittest.TestCase):
         self.karaoke_bar_1.guest_check_in("Pop Room", self.group_1)
         self.karaoke_bar_1.guest_check_out("Pop Room", self.group_1)
         self.assertEqual([], self.room_1.guests)
-    
-    def test_guest_check_in__too_full(self):
-        self.karaoke_bar_1.guest_check_in("Punk Room", self.group_1)
-        self.assertEqual([], self.room_1.guests)
-        self.assertEqual(0.00, self.room_1.revenue)
 
     def test_collect_money_from_rooms(self):
         self.karaoke_bar_1.guest_check_in("Pop Room", self.group_1)
